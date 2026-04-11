@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: Payment Orchestration API (Portfolio Reference)
+  version: 1.0.0
+  description: Documentation-grade API contract for multi-provider orchestration.
+servers:
+  - url: https://api.example-payments.com
+paths:
+  /v1/payments:
+    post:
+      summary: Create a payment intent and attempt authorization
+      operationId: createPayment
+      parameters:
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+      responses:
+        '201':
+          description: Payment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '409':
+          description: Idempotency conflict
+  /v1/payments/{paymentId}/capture:
+    post:
+      summary: Capture an authorized payment
+      operationId: capturePayment
+      parameters:
+        - in: path
+          name: paymentId
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Capture succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+  /v1/payments/{paymentId}/refunds:
+    post:
+      summary: Refund a captured payment
+      operationId: refundPayment
+      parameters:
+        - in: path
+          name: paymentId
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Idempotency-Key
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Refund succeeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundResponse'
+components:
+  schemas:
+    CreatePaymentRequest:
+      type: object
+      required: [amount, currency, method, channel]
+      properties:
+        amount:
+          type: integer
+          example: 4999
+        currency:
+          type: string
+          example: USD
+        method:
+          type: string
+          enum: [card, paypal, apple_pay]
+        channel:
+          type: string
+          enum: [web, web_mobile, mobile]
+        customerReference:
+          type: string
+          example: cust_anon_001
+    PaymentResponse:
+      type: object
+      properties:
+        paymentId:
+          type: string
+          example: pay_anon_12345
+        status:
+          type: string
+          enum: [initiated, requires_action, authorized, captured, failed, cancelled, refunded]
+        providerReference:
+          type: string
+          example: prv_ref_98765
+        nextAction:
+          type: string
+          nullable: true
+          example: complete_3ds
+    RefundResponse:
+      type: object
+      properties:
+        refundId:
+          type: string
+          example: ref_anon_001
+        status:
+          type: string
+          enum: [pending, succeeded, failed]
