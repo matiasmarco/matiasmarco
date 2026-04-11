@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WalletPaymentRequest",
+  "type": "object",
+  "required": [
+    "walletType",
+    "amount",
+    "currency",
+    "merchantId",
+    "checkoutSessionId",
+    "payload"
+  ],
+  "properties": {
+    "walletType": {
+      "type": "string",
+      "enum": ["apple_pay", "google_pay", "paypal"]
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0
+    },
+    "currency": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    },
+    "merchantId": {
+      "type": "string"
+    },
+    "checkoutSessionId": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Wallet-specific token or session data"
+    },
+    "customer": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

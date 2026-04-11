@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WalletPaymentResponse",
+  "type": "object",
+  "required": ["status", "walletType", "message"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["approved", "declined", "requires_action", "error"]
+    },
+    "walletType": {
+      "type": "string",
+      "enum": ["apple_pay", "google_pay", "paypal"]
+    },
+    "providerReference": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "fallbackToCard": {
+      "type": "boolean",
+      "default": false
+    },
+    "nextAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["redirect", "sdk_action", "retry"]
+        },
+        "url": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
