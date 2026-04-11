@@ -1,0 +1,19 @@
+sequenceDiagram
+  autonumber
+  participant U as Customer
+  participant C as Client (Web/Web Mobile/Mobile)
+  participant P as Payment API
+  participant O as Orchestrator
+  participant A as Provider A
+  participant B as Provider B (Fallback)
+
+  U->>C: Submit order and payment method
+  C->>P: Create payment (Idempotency-Key)
+  P->>O: Validate + route request
+  O->>A: Authorize (card / PayPal / Apple Pay)
+  A-->>O: Soft decline (technical)
+  O->>B: Fallback authorization
+  B-->>O: Approved
+  O-->>P: Authorized
+  P-->>C: Payment status = authorized
+  C-->>U: Show confirmation
