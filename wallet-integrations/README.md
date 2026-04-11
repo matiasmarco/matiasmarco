@@ -59,3 +59,11 @@ No real certificates or merchant IDs are used.
 Token payloads are mocked.
 No production gateway logic is represented.
 All flows are educational abstractions.
+
+## Estructura documental agregada
+
+- `markdown/`: documentación técnica y funcional en Markdown.
+- `diagramas/`: diagramas de arquitectura y flujos (Mermaid u otros formatos).
+- `openapi/`: especificaciones OpenAPI del dominio.
+- `ejemplos-json/`: ejemplos de payloads de request/response.
+- `adrs/`: registros de decisiones arquitectónicas.

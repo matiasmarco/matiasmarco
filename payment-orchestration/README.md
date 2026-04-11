@@ -104,3 +104,11 @@ No production architecture is reproduced.
 No proprietary contracts are included.
 No real endpoints or credentials exist.
 This project is for educational and portfolio purposes only.
+
+## Estructura documental agregada
+
+- `markdown/`: documentación técnica y funcional en Markdown.
+- `diagramas/`: diagramas de arquitectura y flujos (Mermaid u otros formatos).
+- `openapi/`: especificaciones OpenAPI del dominio.
+- `ejemplos-json/`: ejemplos de payloads de request/response.
+- `adrs/`: registros de decisiones arquitectónicas.

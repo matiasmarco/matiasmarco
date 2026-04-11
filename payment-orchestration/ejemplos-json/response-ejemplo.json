@@ -1,0 +1,6 @@
+{
+  "operationId": "op-12345",
+  "status": "approved",
+  "providerReference": "prov-98765",
+  "processedAt": "2026-04-11T00:00:00Z"
+}

@@ -1,0 +1,20 @@
+openapi: 3.0.3
+info:
+  title: API Placeholder
+  version: 0.1.0
+  description: Especificación OpenAPI inicial para el repositorio.
+paths:
+  /health:
+    get:
+      summary: Healthcheck
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
