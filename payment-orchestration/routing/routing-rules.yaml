@@ -1,0 +1,44 @@
+version: 1
+
+default:
+  route: PSP_A
+  fallback: PSP_B
+  retry: 1
+
+rules:
+  - name: uk-high-value
+    when:
+      country: UK
+      amount_gt: 50000 # minor units; e.g., 500.00 with exponent 2
+    then:
+      route: PSP_B
+      fallback: PSP_A
+      retry: 2
+
+  - name: eu-standard-card
+    when:
+      country_in: [DE, FR, ES, IT, NL, BE]
+      payment_method: CARD
+    then:
+      route: PSP_A
+      fallback: PSP_B
+      retry: 1
+
+  - name: wallet-preference
+    when:
+      payment_method: WALLET
+    then:
+      route: PSP_B
+      fallback: PSP_A
+      retry: 0
+
+provider_health_overrides:
+  enabled: true
+  strategy: weighted-failover
+  degrade_threshold_pct: 7.5
+  latency_threshold_ms: 1200
+
+notes:
+  - Rules are evaluated top-to-bottom; first match wins.
+  - If primary provider health is degraded, router may switch to fallback.
+  - Retry applies per provider attempt before fallback.

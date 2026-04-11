@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/contracts/payment-response.json",
+  "title": "PaymentResponse",
+  "type": "object",
+  "required": [
+    "paymentId",
+    "status",
+    "provider",
+    "attempt",
+    "processedAt"
+  ],
+  "properties": {
+    "paymentId": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["AUTHORIZED", "DECLINED", "REQUIRES_ACTION", "FAILED"]
+    },
+    "provider": { "type": "string" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "processedAt": { "type": "string", "format": "date-time" },
+    "providerReference": { "type": "string" },
+    "reasonCode": { "type": "string" },
+    "retryable": { "type": "boolean" },
+    "action": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["REDIRECT", "CHALLENGE"] },
+        "url": { "type": "string", "format": "uri" },
+        "token": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "state": {
+      "type": "object",
+      "required": ["current", "history"],
+      "properties": {
+        "current": { "type": "string" },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["from", "to", "timestamp"],
+            "properties": {
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
