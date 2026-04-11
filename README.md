@@ -1,29 +1,105 @@
-# payment-orchestration
+██████╗  █████╗ ██╗   ██╗███╗   ███╗███████╗███╗   ██╗████████╗
+██╔══██╗██╔══██╗╚██╗ ██╔╝████╗ ████║██╔════╝████╗  ██║╚══██╔══╝
+██████╔╝███████║ ╚████╔╝ ██╔████╔██║█████╗  ██╔██╗ ██║   ██║
+██╔═══╝ ██╔══██║  ╚██╔╝  ██║╚██╔╝██║██╔══╝  ██║╚██╗██║   ██║
+██║     ██║  ██║   ██║   ██║ ╚═╝ ██║███████╗██║ ╚████║   ██║
+╚═╝     ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝   ╚═╝
+Senior Product Manager — Payments
+┌──────────────────────────────────────────────────────────────┐
+│ Payments • Checkout • Wallets • Orchestration • 3DS • Risk   │
+│ Apple Pay • Google Pay • PayPal • Cards • Tokenization       │
+│ Authorization • Capture • Settlement • Payment Architecture  │
+└──────────────────────────────────────────────────────────────┘
+About
 
-Documentation-first portfolio repository for a **Senior Product Manager** designing a multi-provider payment orchestration capability.
+Senior Product Manager based in Argentina focused on designing and delivering payment-centric platforms.
+Most initiatives revolve around checkout systems, payment orchestration, wallet integrations, and enterprise-grade payment architectures.
 
-## Scope
-- Channels: **web**, **web mobile**, **native mobile**
-- Payment methods: **cards**, **PayPal**, **Apple Pay**
-- Focus: reliability, conversion, and operational control
-- Intent: product artifacts only (no production code)
+Work spans across:
 
-## Repository Structure
-- `docs/payment-state-machine.md` — lifecycle and state model
-- `docs/provider-routing.md` — provider routing strategy and decisioning
-- `docs/idempotency.md` — idempotent API and retry behavior
-- `adr/adr-001-provider-fallback.md` — architecture decision record
-- `api/payment-api.yaml` — reference API contract (documentation-grade)
-- `metrics/kpi-tree.md` — KPI hierarchy for payment outcomes
-- `assets/checkout-sequence.mmd` — checkout sequence diagram (Mermaid)
+Card payments (credit / debit)
+Digital wallets
+Payment orchestration layers
+Checkout architecture
+3DS authentication flows
+Tokenization and security
+Multi-provider routing
+Payment resiliency and retries
+Payment observability and metrics
+End-to-end payment lifecycle
+Focus Areas
+Checkout Architecture
+        │
+        ├── Payment Orchestration
+        │        ├── Routing
+        │        ├── Retries
+        │        └── Failover
+        │
+        ├── Wallet Integrations
+        │        ├── Apple Pay
+        │        ├── Google Pay
+        │        └── PayPal
+        │
+        └── Card Payments
+                 ├── Tokenization
+                 ├── 3DS
+                 └── Authorization
+What This GitHub Contains
+payment-orchestration/
+wallet-integrations/
+checkout-architecture/
+payment-state-machines/
+payment-observability/
+payment-retry-strategies/
 
-## Product Principles
-1. **Protect authorization conversion** before optimizing cost.
-2. **Prefer deterministic behavior** for retries, callbacks, and state transitions.
-3. **Minimize customer-visible failures** with provider fallback and clear UX messaging.
-4. **Instrument every critical hop** for observability and experimentation.
+Each repository models real-world payment problems:
 
-## Assumptions
-- All data examples are anonymized and synthetic.
-- This repository does not include PCI implementation details or runtime services.
-- Provider names are abstracted as Provider A / B to preserve portability.
+Multi-provider orchestration
+Wallet abstraction layers
+Checkout resiliency
+Payment state machines
+Error handling strategies
+Retry and fallback logic
+Payment metrics and monitoring
+Scalable payment architectures
+Product Thinking Applied to Payments
+User clicks Pay
+      │
+      ▼
+Checkout UI
+      │
+      ▼
+Payment Selection
+      │
+      ▼
+Wallet / Card
+      │
+      ▼
+Orchestration Layer
+      │
+      ├── Provider A
+      ├── Provider B
+      └── Fallback
+      │
+      ▼
+Authorization
+      │
+      ▼
+Confirmation
+Principles
+Payments first architecture
+Provider agnostic design
+Resilient checkout flows
+Observable payment lifecycle
+Decoupled wallet integrations
+Idempotent payment execution
+Clear payment state machines
+Enterprise checkout scalability
+Region
+
+Argentina — working across global payment platforms and multi-market checkout systems.
+
+┌────────────────────────────────────────────┐
+│ Building payment systems from product view │
+│ Not just features — full payment flows     │
+└────────────────────────────────────────────┘
