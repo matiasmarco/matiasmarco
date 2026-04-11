@@ -1,0 +1,6 @@
+{
+  "operationId": "op-12345",
+  "amount": 12500,
+  "currency": "USD",
+  "customerId": "cust-001"
+}

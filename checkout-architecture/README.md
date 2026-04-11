@@ -79,3 +79,11 @@ Payments:
 - No proprietary APIs are included.
 - Timing, states, and flows are simplified.
 - Architecture is illustrative only.
+
+## Estructura documental agregada
+
+- `markdown/`: documentación técnica y funcional en Markdown.
+- `diagramas/`: diagramas de arquitectura y flujos (Mermaid u otros formatos).
+- `openapi/`: especificaciones OpenAPI del dominio.
+- `ejemplos-json/`: ejemplos de payloads de request/response.
+- `adrs/`: registros de decisiones arquitectónicas.
