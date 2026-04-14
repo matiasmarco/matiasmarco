@@ -27,21 +27,28 @@ def fetch_aviationstack() -> List[Dict]:
     data = response.json().get("data", [])
     flights = []
     for row in data:
+        departure = row.get("departure") or {}
+        arrival = row.get("arrival") or {}
+        aircraft = row.get("aircraft") or {}
+        flight = row.get("flight") or {}
+        airline = row.get("airline") or {}
         flights.append(
             {
-                "id": row.get("flight", {}).get("iata"),
-                "flight_number": row.get("flight", {}).get("iata"),
-                "airline": row.get("airline", {}).get("name"),
-                "origin": row.get("departure", {}).get("iata"),
-                "destination": row.get("arrival", {}).get("iata"),
-                "scheduled_time": row.get("departure", {}).get("scheduled"),
-                "estimated_time": row.get("departure", {}).get("estimated"),
-                "actual_time": row.get("departure", {}).get("actual"),
+                # Dejar que el normalizador genere un id estable (source:flight_number:scheduled_time)
+                # porque el proveedor puede repetir/omitir iata y eso rompe el upsert en batch.
+                "id": None,
+                "flight_number": flight.get("iata"),
+                "airline": airline.get("name"),
+                "origin": departure.get("iata"),
+                "destination": arrival.get("iata"),
+                "scheduled_time": departure.get("scheduled"),
+                "estimated_time": departure.get("estimated"),
+                "actual_time": departure.get("actual"),
                 "status": row.get("flight_status"),
                 "type": "departure",
-                "gate": row.get("departure", {}).get("gate"),
-                "terminal": row.get("departure", {}).get("terminal"),
-                "aircraft": row.get("aircraft", {}).get("registration"),
+                "gate": departure.get("gate"),
+                "terminal": departure.get("terminal"),
+                "aircraft": aircraft.get("registration"),
                 "is_international": None,
             }
         )
@@ -106,7 +113,10 @@ def upsert_flights(records: List[Dict]) -> int:
 def main() -> None:
     provider_rows = fetch_aviationstack()
     normalized = [normalize_flight(r, source="aviationstack") for r in provider_rows]
-    count = upsert_flights(normalized)
+    deduped_by_id: Dict[str, Dict] = {}
+    for r in normalized:
+        deduped_by_id[r["id"]] = r
+    count = upsert_flights(list(deduped_by_id.values()))
     print(f"Ingesta COR completada: {count} vuelos procesados")
 
 
